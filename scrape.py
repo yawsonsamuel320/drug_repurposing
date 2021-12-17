@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 drug_df = pd.read_csv("drug-accession-numbers.csv")
+pd.set_option('display.max_colwidth', -1)
 
 def parse_html(url):
     html = requests.get(url)

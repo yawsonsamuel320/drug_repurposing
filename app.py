@@ -13,6 +13,9 @@ from scrape import name_drug
 from scrape import generate_dan
 from scrape import return_img_url
 
+pd.set_option('display.max_colwidth', -1)
+
+
 
 configure_page()
 tab = toggle_sidebar()

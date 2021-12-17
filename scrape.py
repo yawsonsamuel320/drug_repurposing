@@ -134,7 +134,7 @@ def return_ana_targets(dan):
     
     targets_links_list = [target.text for target in targets_links_list]
     
-    return targets_links_list
+    return list(set(targets_links_list))
 
 def return_similar(drug):
     dan = generate_dan(drug)[0]

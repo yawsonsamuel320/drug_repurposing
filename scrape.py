@@ -179,7 +179,7 @@ def return_similar(drug):
     
     remarks_list = [ana_data.find("dd", class_="col-xl-10 col-md-9 col-sm-8").text for ana_data in ana_data_list]
     
-    targets_list = [return_ana_targets(dan) for dan in dan_list]
+    targets_list = [" ".join(return_ana_targets(dan)) for dan in dan_list]
     
     analogous_df = pd.DataFrame(columns=["Name of Compound", "Tanimoto Coefficient", "Research Status", "Chemical Formula", "Monoisotopic Mass"])
     

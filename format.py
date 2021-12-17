@@ -3,7 +3,7 @@ from scrape import *
 from PIL import Image
 
 
-image = Image.open("image\\logo.png")
+image = Image.open("logo.png")
 
 
 def clear_page():

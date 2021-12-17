@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-drug_df = pd.read_csv("data\\raw\\drug-accession-numbers.csv")
+drug_df = pd.read_csv("drug-accession-numbers.csv")
 
 def parse_html(url):
     html = requests.get(url)

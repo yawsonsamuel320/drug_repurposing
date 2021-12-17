@@ -125,6 +125,16 @@ def return_transporters(drug):
         return transporters_list
     except:
         return ["No Transporters Found"]
+    
+def return_ana_targets(dan):
+    url = "https://go.drugbank.com/drugs/" + dan
+    data = parse_html(url)
+    
+    targets_links_list = (data.find_all("table", class_="table table-sm responsive-table"))[0].find_all("a")
+    
+    targets_links_list = [target.text for target in targets_links_list]
+    
+    return targets_links_list
 
 def return_similar(drug):
     dan = generate_dan(drug)[0]
@@ -169,6 +179,7 @@ def return_similar(drug):
     
     remarks_list = [ana_data.find("dd", class_="col-xl-10 col-md-9 col-sm-8").text for ana_data in ana_data_list]
     
+    targets_list = [return_ana_targets(dan) for dan in dan_list]
     
     analogous_df = pd.DataFrame(columns=["Name of Compound", "Tanimoto Coefficient", "Research Status", "Chemical Formula", "Monoisotopic Mass"])
     
@@ -178,5 +189,6 @@ def return_similar(drug):
     analogous_df["Chemical Formula"] = pd.Series(formula_list)
     analogous_df["Monoisotopic Mass"] = pd.Series(mass_list)
     analogous_df["Remarks"] = pd.Series(remarks_list)
+    analogous_df["Targets"] = pd.Series(targets_list)
     
     return analogous_df

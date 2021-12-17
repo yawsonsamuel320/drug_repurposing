@@ -89,7 +89,7 @@ if tab == "Home":
         st.write(transporters)
         
     st.markdown("### Similiar Structures")
-    st.dataframe(return_similar(drug))
+    st.table(return_similar(drug))
     
     
     

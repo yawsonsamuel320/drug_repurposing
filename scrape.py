@@ -159,6 +159,16 @@ def return_similar(drug):
     mass_list = similar_structures.find_all("div", class_="structure-mass-mt-3")
     mass_list = [mass.text for mass in mass_list[1: ]]
     
+    dan_list = similar_structures.find_all("a", class_="btn btn-card")
+    dan_list = [dan.text for dan in dan_list[1: ]]
+    ana_url_list = ["https://go.drugbank.com/drugs/" + dan for dan in dan_list]
+    
+    ana_html_list = [requests.get(ana_url) for ana_url in ana_url_list]
+    ana_data_list = [BeautifulSoup(ana_html.content, "html.parser") for ana_html in ana_html_list]
+    
+    remarks_list = [ana_data.find("dd", class_="col-xl-10 col-md-9 col-sm-8").text for ana_data in ana_data_list]
+    
+    
     analogous_df = pd.DataFrame(columns=["Name of Compound", "Tanimoto Coefficient", "Research Status", "Chemical Formula", "Monoisotopic Mass"])
     
     analogous_df["Name of Compound"] = pd.Series(names_list)
@@ -166,5 +176,6 @@ def return_similar(drug):
     analogous_df["Research Status"] = pd.Series(status_list)
     analogous_df["Chemical Formula"] = pd.Series(formula_list)
     analogous_df["Monoisotopic Mass"] = pd.Series(mass_list)
+    analogous_df["Remarks"] = pd.Series(remarks_list)
     
     return analogous_df

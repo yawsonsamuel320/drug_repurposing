@@ -189,11 +189,8 @@ def return_similar(drug):
     html_types = requests.get(url_types)
     data_types = BeautifulSoup(html_types.content, "html.parser")
     ul_list = (data_types.find_all("ul", class_="cancer-list"))  
-    cancer_type_list = [a.text  for ul in ul_list for a in ul.find_all("a")] 
-    cancer_type_list.append("chemotherapy")
-    
-    cancer_type_list = [cancer_type.lower() for cancer_type in cancer_type_list]
-
+    cancer_type_list = [a.text.lower()  for ul in ul_list for a in ul.find_all("a")] + ["cancer", "chemotherapy", "neoplasms", "tumour", "tumor"]
+        
     analogous_df = pd.DataFrame(columns=["Name of Compound", "Tanimoto Coefficient", "Research Status", "Chemical Formula", "Monoisotopic Mass"])
     
     analogous_df["Name of Compound"] = pd.Series(names_list)
@@ -204,15 +201,12 @@ def return_similar(drug):
     analogous_df["Remarks"] = pd.Series(remarks_list)
     analogous_df["Targets"] = pd.Series(targets_list)
     
-    analogous_df["Attempted with Cancer"] = pd.Series(len(analogous_df))
+    analogous_df["Attempted with Cancer"] = pd.Series(False for i in range(len(analogous_df)))
     
     for i in range(len(analogous_df)):
         for cancer_type in cancer_type_list:
-        
             if cancer_type in str(analogous_df.loc[i, "Remarks"]).lower():
                 analogous_df.loc[i, "Attempted with Cancer"] = True
-            else:
-                analogous_df.loc[i, "Attempted with Cancer"] = False
             
                 
     return analogous_df

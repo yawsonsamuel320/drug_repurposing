@@ -145,8 +145,13 @@ def return_similar(drug):
       
     similar_structures = (data.find("tbody"))
     
-    names_list = similar_structures.find_all("strong")
-    names_list = [name.text for name in names_list[1: ]]
+    try:
+        names_list = similar_structures.find_all("strong")
+        names_list = [name.text for name in names_list[1: ]]
+        
+    except:
+        names_list = similar_structures.find_all("em")
+        names_list = [name.text for name in names_list[1: ]]
     
     score_list = similar_structures.find_all("div", class_="search-score label label-default")
     score_list = [score.text for score in score_list]
@@ -199,14 +204,14 @@ def return_similar(drug):
     analogous_df["Remarks"] = pd.Series(remarks_list)
     analogous_df["Targets"] = pd.Series(targets_list)
     
-    analogous_df["Attempted with Cancer"] = pd.Series(len(analogous_df))
+"""    analogous_df["Attempted with Cancer"] = pd.Series(len(analogous_df))
     
     for i in range(len(analogous_df)):
         for cancer_type in cancer_type_list:
             if cancer_type in analogous_df["Remarks"]:
                 analogous_df.loc[i, "Attempted with Cancer"] = True
             else:
-                analogous_df.loc[i, "Attempted with Cancer"] = False
+                analogous_df.loc[i, "Attempted with Cancer"] = False"""
             
 
     

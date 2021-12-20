@@ -42,56 +42,61 @@ if tab == "Home":
         "Select a drug:", approved_drugs_list
     )
     
+    if "mab" in drug.lower():
+        st.markdown("""### Non-Chemical Drug""")
+        st.write("This is an Antibody")
+        
+    else:
+        
+        text_contents = '''
+                        Foo, Bar
+                        123, 456
+                        789, 000
+                        '''
+        st.write("\n\n\n")   
+        
+        col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+        
+        with col4:
+            st.download_button('Download CSV', text_contents, 'text/csv')
+        
+        st.markdown("### Generic Name")
+        st.write(name_drug(drug))
     
-    text_contents = '''
-                    Foo, Bar
-                    123, 456
-                    789, 000
-                    '''
-    st.write("\n\n\n")   
-    
-    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
-    
-    with col4:
-        st.download_button('Download CSV', text_contents, 'text/csv')
-    
-    st.markdown("### Generic Name")
-    st.write(name_drug(drug))
-  
-    dan = generate_dan(drug)
-    
-    img_url = return_img_url(drug)
-    
-    st.markdown("### Chemical Structure")
-    st.markdown(f"""![Alt Text]({img_url})""", unsafe_allow_html=True)
-    
-    st.markdown("### Research Status")
-    st.write(state_drug_status(drug))
-    
-    st.markdown("### Chemical Formula")
-    st.write(return_formula(drug))
-    
-    st.markdown("### Monoisotopic Weight")
-    st.write(f"""{return_weight(drug)}""")
-    
-    st.markdown("### Targets")
-    for target in return_targets(drug):
-        st.write(target)
+        dan = generate_dan(drug)
+        
+        img_url = return_img_url(drug)
+        
+        st.markdown("### Chemical Structure")
+        st.markdown(f"""![Alt Text]({img_url})""", unsafe_allow_html=True)
+        
+        st.markdown("### Research Status")
+        st.write(state_drug_status(drug))
+        
+        st.markdown("### Chemical Formula")
+        st.write(return_formula(drug))
+        
+        st.markdown("### Monoisotopic Weight")
+        st.write(f"""{return_weight(drug)}""")
+        
+        st.markdown("### Targets")
+        for target in return_targets(drug):
+            st.write(target)
+            
+            
+        st.markdown("### Enzymes")
+        for enzyme in return_enzymes(drug):
+            st.write(enzyme)
+            
+            
+        st.markdown("### Transporters")
+        for transporters in return_transporters(drug):
+            st.write(transporters)
+            
+        st.markdown("### Similiar Structures")
+        st.table(return_similar(drug))
         
         
-    st.markdown("### Enzymes")
-    for enzyme in return_enzymes(drug):
-        st.write(enzyme)
         
         
-    st.markdown("### Transporters")
-    for transporters in return_transporters(drug):
-        st.write(transporters)
         
-    st.markdown("### Similiar Structures")
-    st.table(return_similar(drug))
-    
-    
-    
-    
-    

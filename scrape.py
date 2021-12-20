@@ -204,9 +204,9 @@ def return_similar(drug):
     for i in range(len(analogous_df)):
         for cancer_type in cancer_type_list:
             if cancer_type in analogous_df["Remarks"]:
-                analogous_df.iloc[i, "Attempted with Cancer"] = True
+                analogous_df.loc[i, "Attempted with Cancer"] = True
             else:
-                analogous_df.iloc[i, "Attempted with Cancer"] = False
+                analogous_df.loc[i, "Attempted with Cancer"] = False
             
 
     

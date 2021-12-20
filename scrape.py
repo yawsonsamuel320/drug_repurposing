@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+import streamlit as st
+
 drug_df = pd.read_csv("drug-accession-numbers.csv")
 pd.set_option('display.max_colwidth', -1)
 
@@ -142,16 +144,12 @@ def return_similar(drug):
     url = "https://go.drugbank.com/structures/search/small_molecule_drugs/structure?database_id=" + str(dan) + "&search_type=similarity#results"
     
     data = parse_html(url)
-      
-    similar_structures = (data.find("tbody"))
     
-    try:
-        names_list = similar_structures.find_all("strong")
-        names_list = [name.text for name in names_list[1: ]]
+    similar_structures = data.find("tbody")
+    
+    names_list = similar_structures.find_all("strong")
+    names_list = [name.text for name in names_list[1: ]]
         
-    except:
-        names_list = similar_structures.find_all("em")
-        names_list = [name.text for name in names_list[1: ]]
     
     score_list = similar_structures.find_all("div", class_="search-score label label-default")
     score_list = [score.text for score in score_list]
@@ -192,8 +190,10 @@ def return_similar(drug):
     data_types = BeautifulSoup(html_types.content, "html.parser")
     ul_list = (data_types.find_all("ul", class_="cancer-list"))  
     cancer_type_list = [a.text  for ul in ul_list for a in ul.find_all("a")] 
+    cancer_type_list.append("chemotherapy")
     
-    
+    cancer_type_list = [cancer_type.lower() for cancer_type in cancer_type_list]
+
     analogous_df = pd.DataFrame(columns=["Name of Compound", "Tanimoto Coefficient", "Research Status", "Chemical Formula", "Monoisotopic Mass"])
     
     analogous_df["Name of Compound"] = pd.Series(names_list)
@@ -204,15 +204,21 @@ def return_similar(drug):
     analogous_df["Remarks"] = pd.Series(remarks_list)
     analogous_df["Targets"] = pd.Series(targets_list)
     
-"""    analogous_df["Attempted with Cancer"] = pd.Series(len(analogous_df))
+    analogous_df["Attempted with Cancer"] = pd.Series(len(analogous_df))
     
     for i in range(len(analogous_df)):
         for cancer_type in cancer_type_list:
-            if cancer_type in analogous_df["Remarks"]:
+        
+            if cancer_type in str(analogous_df.loc[i, "Remarks"]).lower():
                 analogous_df.loc[i, "Attempted with Cancer"] = True
             else:
-                analogous_df.loc[i, "Attempted with Cancer"] = False"""
+                analogous_df.loc[i, "Attempted with Cancer"] = False
             
+                
+    return analogous_df
+            
+            
+                
 
     
-    return analogous_df
+    

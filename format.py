@@ -35,7 +35,7 @@ def display_logo():
     
     
 def toggle_sidebar():
-    menu = ["Home", "Next Page"]
+    menu = ["Home", "Download"]
     tab = st.sidebar.selectbox("Drug Repurposing", menu)
     
     return tab

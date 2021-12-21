@@ -85,13 +85,13 @@ if tab == "Home":
         
 elif tab == "Download":
         display_logo()
-        display_header(tab)
+        st.subheader("DOWNLOAD")
         
         cancers_list = [part + " Cancer" for part in ["Breast", "Ovarian", "Pancreatic", "Prostate"]]
         cancer_type = st.selectbox("Select Cancer Type", cancers_list, key="sourceKey")
         option = cancer_type.split()[0].lower()
         
-        analogous_csv = pd.read_excel(option + "-analogs.csv")
+        analogous_csv = pd.read_csv(option + "-analogs.csv").encode('utf-8')
         st.write("\n\n\n")   
         
         col1, col2, col3, col4, col5, col6, col7 = st.columns(7)

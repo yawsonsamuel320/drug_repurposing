@@ -22,7 +22,6 @@ tab = toggle_sidebar()
 
 
 if tab == "Home":
-    #st.header("Drug Repurposing Navigator")
     display_logo()
     display_header(tab)
     
@@ -47,18 +46,6 @@ if tab == "Home":
         st.write("This is an Antibody")
         
     else:
-        
-        text_contents = '''
-                        Foo, Bar
-                        123, 456
-                        789, 000
-                        '''
-        st.write("\n\n\n")   
-        
-        col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
-        
-        with col4:
-            st.download_button('Download CSV', text_contents, 'text/csv')
         
         st.markdown("### Generic Name")
         st.write(name_drug(drug))
@@ -96,7 +83,20 @@ if tab == "Home":
         st.markdown("### Similiar Structures")
         st.table(return_similar(drug))
         
+elif tab == "Download":
+        display_logo()
+        display_header(tab)
         
+        cancers_list = [part + " Cancer" for part in ["Breast", "Ovarian", "Pancreatic", "Prostate"]]
+        cancer_type = st.selectbox("Select Cancer Type", cancers_list, key="sourceKey")
+        option = cancer_type.split()[0].lower()
         
+        analogous_csv = pd.read_excel(option + "-analogs.csv")
+        st.write("\n\n\n")   
         
+        col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+        
+        with col4:
+            st.download_button('Download CSV', data=analogous_csv, file_name=option+"-analogs.csv", mime='text/csv')
+            
         

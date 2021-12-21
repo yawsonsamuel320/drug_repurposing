@@ -189,7 +189,8 @@ def return_similar(drug):
     html_types = requests.get(url_types)
     data_types = BeautifulSoup(html_types.content, "html.parser")
     ul_list = (data_types.find_all("ul", class_="cancer-list"))  
-    cancer_type_list = [a.text.lower()  for ul in ul_list for a in ul.find_all("a")] + ["cancer", "chemotherapy", "neoplasms", "tumour", "tumor", "mesothelioma"]
+    cancer_type_list = [a.text.lower()  for ul in ul_list for a in ul.find_all("a")] + ["cancer", "chemotherapy", "neoplasms", "tumour", "tumor", "mesothelioma", "metabolite", "carcinoma",
+                                                                                        "lupus"]
         
     analogous_df = pd.DataFrame(columns=["Name of Compound", "Tanimoto Coefficient", "Research Status", "Chemical Formula", "Monoisotopic Mass"])
     

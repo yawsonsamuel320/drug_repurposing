@@ -91,7 +91,20 @@ elif tab == "Download":
         cancer_type = st.selectbox("Select Cancer Type", cancers_list, key="sourceKey")
         option = cancer_type.split()[0].lower()
         
-        analogous_csv = pd.read_csv(option + "-analogs.csv").encode('utf-8')
+        url = "https://www.cancer.gov/about-cancer/treatment/drugs/" + option    
+        approved_drugs_list = return_approved(url)
+        
+        final_csv = pd.DataFrame()
+        
+        for drug in approved_drugs_list:
+            drug_csv = return_similar(drug)
+            drug_csv = drug_csv[drug_csv["Attempted with Cancer"]]
+            final_csv.append(drug_csv)
+            
+        st.table(final_csv)
+        
+        analogous_csv = final_csv
+        analogous_csv = analogous_csv.to_csv().encode('utf-8')
         st.write("\n\n\n")   
         
         col1, col2, col3, col4, col5, col6, col7 = st.columns(7)

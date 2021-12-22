@@ -96,10 +96,22 @@ elif tab == "Download":
         
         final_csv = pd.DataFrame()
         
-        for drug in approved_drugs_list:
+        
+        latest_iteration = st.empty()
+        bar = st.progress(0)
+        count = 1
+        
+        for i in range(len(approved_drugs_list)):
+            latest_iteration.text(f'Drug {count} of {len(approved_drugs_list)}')
+            value = int(count/len(approved_drugs_list)*100)
+            bar.progress(value)
+            
+            drug = approved_drugs_list[i]
             drug_csv = return_similar(drug)
             drug_csv = drug_csv[drug_csv["Attempted with Cancer"]]
             final_csv.append(drug_csv)
+            
+            count += 1
             
         st.table(final_csv)
         

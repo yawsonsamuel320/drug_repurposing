@@ -3,7 +3,7 @@ from scrape import *
 from PIL import Image
 
 
-image = Image.open("logo.png")
+image = Image.open("./assets/images/logo.png")
 pd.set_option('display.max_colwidth', None)
 
 

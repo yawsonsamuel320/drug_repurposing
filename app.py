@@ -19,8 +19,8 @@ import pandas as pd
 import numpy as np
 
 # Import functions from custom modules
-from format import *
-from scrape import return_approved, name_drug, generate_dan, return_img_url
+from utils.format import *
+from utils.scrape import return_approved, name_drug, generate_dan, return_img_url
 
 # Set Pandas display options
 pd.set_option('display.max_colwidth', None)

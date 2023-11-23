@@ -1,5 +1,5 @@
 # drug-repurposing
 
-This is a project to build a streamlit app that will help in drug repurposing. Deployed to heroku: https://drugrepo.herokuapp.com/
+This is a project to build a streamlit app that will help in drug repurposing. 
 
-## Prerequisites
+To get started, run `poetry run streamlit run app.py`

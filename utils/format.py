@@ -1,5 +1,5 @@
 import streamlit as st
-from scrape import *
+from utils.scrape import *
 from PIL import Image
 
 

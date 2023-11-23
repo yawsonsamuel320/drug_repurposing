@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 
 drug_df = pd.read_csv("drug-accession-numbers.csv")
-pd.set_option('display.max_colwidth', -1)
+pd.set_option('display.max_colwidth', None)
 
 def parse_html(url):
     html = requests.get(url)

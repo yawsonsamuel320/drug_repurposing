@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "drug-repurposing"
+version = "0.1.0"
+description = "This is a project to help"
+authors = ["Samuel Yawson <yawsonsamuel320@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+streamlit = "^1.28.2"
+beautifulsoup4 = "^4.12.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

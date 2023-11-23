@@ -4,7 +4,7 @@ from PIL import Image
 
 
 image = Image.open("logo.png")
-pd.set_option('display.max_colwidth', -1)
+pd.set_option('display.max_colwidth', None)
 
 
 
